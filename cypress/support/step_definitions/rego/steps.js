@@ -1,4 +1,4 @@
-import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";
+import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
 
 Given('I am on the registration page', () => {
     cy.visit('https://service.vic.gov.au/find-services/transport-and-driving/registration/check-registration')
@@ -107,3 +107,22 @@ When("I click on vehicle type {string}", (vehicletype) => {
     cy.get(vehicleSelector).parent().click()
 
 }) 
+
+When("I enter invalid rego", () => {
+    cy.get('#rego-number').type('invalid')
+})
+
+Then("I should get the error under rego input", () => {
+    cy.get('.error').should('contain',"The registration number you entered doesn't match our records.")
+})
+
+When("I click on vehicle identification number", () => {
+    cy.get("ul[aria-labelledby='vehicle-identifier-type']")
+    .find('li:nth-child(2)')
+    .click()
+})
+
+When("I enter a valid VIN", () => {
+    cy.get('#vin').type('KMHJC81DMNU144819')
+})
+
