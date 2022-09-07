@@ -1,4 +1,5 @@
-import { Given, When, Then, And } from "cypress-cucumber-preprocessor/steps";
+import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";
+
 
 Given('I am on the registration page', () => {
     cy.visit('https://service.vic.gov.au/find-services/transport-and-driving/registration/check-registration')
@@ -34,7 +35,7 @@ Then('I should see the title', () => {
 })
 
 When('I click on continue button', () => {
-    cy.get('.button-holder-wrapper')
+    cy.get('.button-holder-wrapper',{timeout: 30000})
     .find('button')
     .contains('Continue')
     .click()
